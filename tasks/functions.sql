@@ -47,7 +47,9 @@ begin
     where passenger_id = most_used_seat.passenger_id
     group by seat
     having count(*) > 1
-    order by count(*) desc
+    order by count(*) desc,
+                cast(left(seat, length(seat) - 1) as int),
+                right(seat, 1)
     limit 1;
 
     return result;
